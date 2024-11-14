@@ -1,0 +1,3 @@
+/home/vpirotti/CLionProjects/libft/cmake-build-debug/CMakeFiles/libft.dir
+/home/vpirotti/CLionProjects/libft/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/vpirotti/CLionProjects/libft/cmake-build-debug/CMakeFiles/rebuild_cache.dir
