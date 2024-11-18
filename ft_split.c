@@ -12,22 +12,27 @@
 
 #include "libft.h"
 
-int	ft_countword(char const *s, char c)
+int	ft_countw(char const *s, char c)
 {
-	int		count;
 	size_t	i;
+	int		count;
 
-	count = 0;
 	i = 0;
+	count = 0;
 	while (s[i])
 	{
 		if (i == 0 && s[i] == c)
+		{
 			i++;
-		else if (s[i] != c)
+		}
+		if (s[i - 1] == c && s[i] != c)
 		{
 			count++;
-			while (s[i] != c && s[i])
-				i++;
+			i++;
+		}
+		else if (s[i] == c)
+		{
+			i++;
 		}
 		else
 			i++;
@@ -35,70 +40,31 @@ int	ft_countword(char const *s, char c)
 	return (count);
 }
 
-char	**ft_minisplit(char const *s, char c, char **res)
-{
-	size_t	i;
-	size_t	start;
-	int		count;
+char	**ft_minisplit(char **res, char const *s, char c)
 
-	start = 0;
-	count = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-		{
-			res[count] = (char *) malloc ((i + 1 - start) * sizeof(char));
-			ft_strlcpy(res[count], &s[start], (i + 1) - start);
-			i++;
-			count++;
-			start = i;
-		}
-		else
-			i++;
-	}
-	res[count] = (char *) malloc ((i + 1 - start) * sizeof(char));
-	ft_strlcpy(res[count], &s[start], (i + 1) - start);
-	return (res);
-}
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	int		count;
 	char	**res;
+	int		words;
 
-	i = 0;
-	count = ft_countword(s, c);
-	if (count == 0)
+	words = ft_countw(s, c);
+	res = (char **) malloc (words * sizeof(char *));
+	if (res == NULL || words == 0)
 		return (NULL);
-	res = (char **) malloc (count * sizeof(char *));
-	res = ft_minisplit(s, c, res);
+
 	return (res);
 }
 
 #include <stdio.h>
 int main(void)
 {
-	char	*test = "   ";
+	char	*test = "  t est a        aaaaa";
 	char	**res;
 	int		i;
 	size_t len;
 
 	i = 0;
-	printf("lu\n", ft_word(test, ' ', &len));
-	// res = ft_split(test, ' ');
-	// while (i < 5)
-	// {
-	// 	printf("%s\n", res[i]);
-	// 	i++;
-	// }
-	// i = 0;
-	// while (i < 5)
-	// {
-	// 	free(res[i]);
-	// 	i++;
-	// }
-	// free(res);
+	printf("%d \n", ft_countw(test, ' '));
 	return 0;
 }
