@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 09:23:06 by vpirotti          #+#    #+#             */
-/*   Updated: 2024/11/08 09:23:06 by vpirotti         ###   ########.fr       */
+/*   Created: 2024/11/20 13:17:42 by vpirotti          #+#    #+#             */
+/*   Updated: 2024/11/20 13:17:59 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
-
 #include "libft.h"
 
-void	*ft_calloc(size_t len, size_t size)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	void	*res;
+	unsigned int	i;
+	char			*res;
 
-	if (len == 0 || size == 0)
+	i = 0;
+	res = (char *) malloc ((ft_strlen(s) + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	while (s[i])
 	{
-		res = malloc(0);
-		return (res);
+		res[i] = f(i, s[i]);
+		i++;
 	}
-	if (len > SIZE_MAX / size || size > SIZE_MAX / len)
-		return (NULL);
-	res = malloc(len * size);
-	if (res == NULL)
-		return (NULL);
-	ft_bzero(res, len * size);
+	res[i] = 0;
 	return (res);
 }

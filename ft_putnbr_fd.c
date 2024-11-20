@@ -1,33 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpirotti <vpirotti@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 09:23:06 by vpirotti          #+#    #+#             */
-/*   Updated: 2024/11/08 09:23:06 by vpirotti         ###   ########.fr       */
+/*   Created: 2024/11/20 14:08:36 by vpirotti          #+#    #+#             */
+/*   Updated: 2024/11/20 14:08:36 by vpirotti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
-
 #include "libft.h"
+#include <unistd.h>
 
-void	*ft_calloc(size_t len, size_t size)
+void	ft_putnbr_fd(int n, int fd)
 {
-	void	*res;
+	char	a;
 
-	if (len == 0 || size == 0)
+	if (n == -2147483648)
 	{
-		res = malloc(0);
-		return (res);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	if (len > SIZE_MAX / size || size > SIZE_MAX / len)
-		return (NULL);
-	res = malloc(len * size);
-	if (res == NULL)
-		return (NULL);
-	ft_bzero(res, len * size);
-	return (res);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	if (n <= 9)
+	{
+		a = n + 48;
+		write(fd, &a, 1);
+	}
+	else
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
 }
+
+// int main(void)
+// {
+// 	ft_putnbr_fd(4593, 1);
+// }
