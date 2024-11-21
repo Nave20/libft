@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-static int	ft_countwords(char const *s,char c)
+static size_t	ft_countwords(char const *s, char c)
 {
 	size_t	i;
-	int		res;
+	size_t	res;
 
 	res = 0;
 	i = 0;
@@ -24,7 +24,7 @@ static int	ft_countwords(char const *s,char c)
 	i++;
 	while (s[i])
 	{
-		if(s[i - 1] == c && s[i] != c)
+		if (s[i - 1] == c && s[i] != c)
 			res++;
 		i++;
 	}
@@ -36,7 +36,7 @@ static size_t	ft_worldlen(char const *s, char c, size_t start)
 	size_t	len;
 
 	len = start;
-	while (s[len] != c || s[len])
+	while (s[len] != c && s[len])
 		len++;
 	return (len);
 }
@@ -49,22 +49,22 @@ static char	*ft_minisplit(char const *s, char c, size_t *i)
 
 	j = 0;
 	len = ft_worldlen(s, c, *i);
-	res = (char *) malloc ((len + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	while (s[*i] || s[*i] != c)
+	res = (char *) malloc ((len - *i + 1) * sizeof(char));
+	if (res == NULL)
+		return (res);
+	while (*i < len)
 	{
 		res[j] = s[*i];
-		i++;
+		*i += 1;
 		j++;
 	}
 	res[j] = 0;
 	return (res);
 }
 
-static void	ft_die(char **res)
+static void	*ft_die(char **res)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (res[i] != NULL)
@@ -73,13 +73,14 @@ static void	ft_die(char **res)
 		i++;
 	}
 	free(res);
+	return (res);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**res;
-	int		words;
-	int		j;
+	size_t	words;
+	size_t	j;
 	size_t	i;
 
 	i = 0;
@@ -87,7 +88,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	words = ft_countwords(s, c);
-	res = (char **) malloc((words + 1) * sizeof(char *));
+	res = ft_calloc(words + 1, sizeof(char *));
 	if (!s[0] || !res)
 		return (res);
 	while (j < words)
@@ -95,31 +96,11 @@ char	**ft_split(char const *s, char c)
 		if (s[i] != c)
 		{
 			res[j++] = ft_minisplit(s, c, &i);
-			if (!res[j])
-				ft_die(res);
-			j++;
+			if (res[j - 1] == NULL)
+				return (ft_die(res));
 		}
 		else
 			i++;
 	}
 	return (res);
-}
-
-#include <stdio.h>
-int main(void)
-{
-	char	*test = "  t est a        aaaaa";
-	char	**res;
-	int		i;
-	size_t len;
-
-	i = 0;
-	printf("%p \n", res = ft_split(test, ' '));
-	while(i < 4)
-	{
-		free(res[i]);
-		i++;
-	}
-	free(res);
-	return 0;
 }
