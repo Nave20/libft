@@ -35,6 +35,18 @@ SOURCES = \
 	ft_putstr_fd.c	\
 	ft_putendl_fd.c	\
 	ft_putnbr_fd.c
+
+BONUS =	\
+	ft_lstnew_bonus.c		\
+	ft_lstadd_front_bonus.c	\
+	ft_lstsize_bonus.c		\
+	ft_lstlast_bonus.c		\
+	ft_lstadd_back_bonus.c	\
+	ft_lstdelone_bonus.c	\
+	ft_lstclear_bonus.c		\
+	ft_lstiter_bonus.c		\
+	ft_lstmap_bonus.c
+
 OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc -Wall -Werror -Wextra
@@ -43,6 +55,9 @@ all	:		$(NAME)
 
 $(NAME):	$(OBJECTS) Makefile
 	ar rcs $(NAME) $(OBJECTS)
+
+bonus :
+	@make SOURCES="${SOURCES} ${BONUS}"
 
 clean	:
 	rm -f $(OBJECTS)
