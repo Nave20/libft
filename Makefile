@@ -47,7 +47,7 @@ BONUS =	\
 	ft_lstiter_bonus.c		\
 	ft_lstmap_bonus.c
 
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:.c=.o) $(BONUS:.c=.o)
 
 CC = cc -Wall -Werror -Wextra
 
