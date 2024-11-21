@@ -73,7 +73,7 @@ static void	*ft_die(char **res)
 		i++;
 	}
 	free(res);
-	return (res);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
