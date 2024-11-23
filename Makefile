@@ -47,24 +47,37 @@ BONUS =	\
 	ft_lstiter_bonus.c		\
 	ft_lstmap_bonus.c
 
-OBJECTS = $(SOURCES:.c=.o) $(BONUS:.c=.o)
+OBJS	=	${SOURCES:.c=.o}
 
-CC = cc -Wall -Werror -Wextra
+B_OBJS	=	${BONUS:.c=.o}
 
-all	:		$(NAME)
+HEADER	=	libft.h
 
-$(NAME):	$(OBJECTS) Makefile
-	ar rcs $(NAME) $(OBJECTS)
+NAME	=	libft.a
 
-bonus :
-	@make SOURCES="${SOURCES} ${BONUS}"
+CC	=	cc
+
+AR	=	ar -rc
+
+FLAGS	=	-Wall -Wextra -Werror
+
+all	:	${NAME}
+
+%.o	:	%.c ${HEADER}
+	${CC} ${FLAGS} -c $< -o $@
+
+${NAME}	:	${OBJS} Makefile
+	${AR} ${NAME} ${OBJS}
+
+bonus	:
+	@make SRCS="${SRCS} ${BNS}"
 
 clean	:
-	rm -f $(OBJECTS)
+	rm -f ${OBJS} ${B_OBJS}
 
 fclean	:	clean
-	rm -f $(NAME)
+	rm -f ${NAME} ${B_OBJS}
 
-re		:	fclean $(NAME)
+re	:	fclean all
 
-.PHONY:		all clean fclean re
+.PHONY	:	all clean fclean re bonus
