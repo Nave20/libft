@@ -70,7 +70,7 @@ ${NAME}	:	${OBJS} Makefile
 	${AR} ${NAME} ${OBJS}
 
 bonus	:
-	@make SRCS="${SRCS} ${BNS}"
+	@make SOURCES="${SOURCES} ${BONUS}"
 
 clean	:
 	rm -f ${OBJS} ${B_OBJS}
