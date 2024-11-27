@@ -60,6 +60,8 @@ static int	ft_excheck(char const c, va_list arg)
 		count = ft_minimemory(va_arg(arg, unsigned long));
 	else if (c == 'u')
 		count = ft_putnbr_fd(va_arg(arg, unsigned int), 1);
+	else
+		count = ft_printf("%%%c", c);
 	return (count);
 }
 
