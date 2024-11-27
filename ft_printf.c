@@ -86,6 +86,7 @@ int	ft_printf(const char *s, ...)
 			return (-1);
 		final += count;
 	}
+	va_end(arg);
 	return (final);
 }
 // #include <limits.h>
