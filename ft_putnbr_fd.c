@@ -13,33 +13,35 @@
 #include "libft.h"
 #include <unistd.h>
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(long long int n, int fd)
 {
 	char	a;
+	int		count;
 
+	count = 0;
 	if (n == -2147483648)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		return ((int) write(fd, "-2147483648", 11));
 	}
 	if (n < 0)
 	{
-		write(fd, "-", 1);
+		count += (int) write(fd, "-", 1);
 		n *= -1;
 	}
 	if (n <= 9)
 	{
 		a = n + 48;
-		write(fd, &a, 1);
+		count += (int) write(fd, &a, 1);
 	}
 	else
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
+		count += ft_putnbr_fd(n / 10, fd);
+		count += ft_putnbr_fd(n % 10, fd);
 	}
+	return (count);
 }
-
+// #include <stdio.h>
 // int main(void)
 // {
-// 	ft_putnbr_fd(4593, 1);
+// 	printf("\n%d",ft_putnbr_fd(4593, 1));
 // }
