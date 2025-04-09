@@ -72,7 +72,7 @@ int	ft_putnbr_base(unsigned long long int nbr, char *base)
 
 	if (nbr == 0)
 		return ((int) write(1, "0", 1));
-	res = calloc(sizeof(char), 1000);
+	res = ft_calloc(sizeof(char), 1000);
 	if (check_base(base) == 0 || !res)
 		return (-1);
 	res = ft_miniputnbr(nbr, base, res);
