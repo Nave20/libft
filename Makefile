@@ -1,6 +1,7 @@
 NAME = libft.a
 
 SOURCES = \
+	ft_arg_error.c	\
 	ft_atoi.c		\
 	ft_bzero.c		\
 	ft_calloc.c		\
